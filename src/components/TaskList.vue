@@ -1,12 +1,22 @@
 <template>
   <div class="task-list">
-    <div class="task" v-for="task in tasks.tasks" v-bind:key="task.id">
+    <div
+      class="task"
+      v-for="(task, index) in tasks.tasks"
+      v-bind:index="index"
+      v-bind:key="task.id"
+    >
       <input type="checkbox" v-bind:checked="task.isDone" />
       <div class="task-name">
         {{ task.title }}
       </div>
       <div class="due-date">
         {{ task.dueDate }}
+      </div>
+      <div>
+        <button class="delete-button" v-on:click="onDeleteClick(index)">
+          X
+        </button>
       </div>
     </div>
     <div>
@@ -41,6 +51,10 @@ export default class TaskList extends Vue {
     this.tasks = this.tasks.add(
       new Task(Date.now().toString(), false, newTaskName, dueDate)
     );
+  }
+
+  onDeleteClick(index: number) {
+    this.tasks = this.tasks.remove(index);
   }
 }
 </script>

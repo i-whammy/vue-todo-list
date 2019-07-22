@@ -10,4 +10,10 @@ export default class Tasks {
     add(task: Task): Tasks {
         return new Tasks([...this.tasks, task])
     }
+
+    remove(index: number): Tasks {
+        const tasks = this.tasks;
+        tasks.splice(index,1)
+        return new Tasks(tasks)
+    }
 }
