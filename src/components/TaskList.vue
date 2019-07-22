@@ -2,7 +2,12 @@
   <div class="task-list">
     <div class="task" v-for="task in tasks.tasks" v-bind:key="task.id">
       <input type="checkbox" v-bind:checked="task.isDone" />
-      {{ task.title }}
+      <div class="task-name">
+        {{ task.title }}
+      </div>
+      <div class="due-date">
+        {{ task.dueDate }}
+      </div>
     </div>
     <div>
       <input
@@ -11,7 +16,10 @@
         placeholder="例: 大根を帰って帰る"
         v-model="newTaskName"
       />
-      <button class="add" v-on:click="onAddClick(newTaskName)">Add</button>
+      <input class="task-due-date-input" type="date" v-model="dueDate" />
+      <button class="add" v-on:click="onAddClick(newTaskName, dueDate)">
+        Add
+      </button>
     </div>
   </div>
 </template>
@@ -29,8 +37,19 @@ export default class TaskList extends Vue {
     new Task("id3", false, "title3")
   ]);
 
-  onAddClick(newTaskName: string) {
-    this.tasks = this.tasks.add(new Task("id4", false, newTaskName));
+  onAddClick(newTaskName: string, dueDate?: Date) {
+    this.tasks = this.tasks.add(
+      new Task(Date.now().toString(), false, newTaskName, dueDate)
+    );
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.task {
+  display: flex;
+}
+.task-name {
+  margin: 0 50px;
+}
+</style>
