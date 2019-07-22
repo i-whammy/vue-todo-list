@@ -4,7 +4,15 @@
       <input type="checkbox" v-bind:checked="task.isDone" />
       {{ task.title }}
     </div>
-    <button class="add" v-on:click="onAddClick">Add</button>
+    <div>
+      <input
+        class="task-name-input"
+        type="text"
+        placeholder="例: 大根を帰って帰る"
+        v-model="newTaskName"
+      />
+      <button class="add" v-on:click="onAddClick(newTaskName)">Add</button>
+    </div>
   </div>
 </template>
 
@@ -21,8 +29,8 @@ export default class TaskList extends Vue {
     new Task("id3", false, "title3")
   ]);
 
-  onAddClick() {
-    this.tasks = this.tasks.add(new Task("id4", false, "title4"));
+  onAddClick(newTaskName: string) {
+    this.tasks = this.tasks.add(new Task("id4", false, newTaskName));
   }
 }
 </script>
