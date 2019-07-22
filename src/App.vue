@@ -1,20 +1,31 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+    <TaskList />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import HelloWorld from "./components/HelloWorld.vue";
+import TaskList from "./components/TaskList.vue";
+import Task from "../src/domains/Task";
 
 @Component({
   components: {
-    HelloWorld
+    HelloWorld,
+    TaskList
   }
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  get tasks(): Task[] {
+    return [
+      new Task("id1", false, "title1"),
+      new Task("id2", false, "title2"),
+      new Task("id3", false, "title3")
+    ];
+  }
+}
 </script>
 
 <style>
