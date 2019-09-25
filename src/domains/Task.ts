@@ -22,4 +22,8 @@ export default class Task {
     undone(): Task {
         return new Task(this.id, false, this.title, this.dueDate)
     }
+
+    isExpired(): boolean {
+        return this.dueDate! < new Date();
+    }
 }

@@ -7,7 +7,7 @@
       v-bind:key="task.id"
     >
       <input type="checkbox" v-bind:checked="task.isDone" />
-      <div class="task-name">
+      <div class="task-name" v-bind:class="{ expired: task.isExpired() }">
         {{ task.title }}
       </div>
       <div class="due-date">
@@ -27,7 +27,10 @@
         v-model="newTaskName"
       />
       <input class="task-due-date-input" type="date" v-model="dueDate" />
-      <button class="add" v-on:click="onAddClick(newTaskName, dueDate)">
+      <button
+        class="add"
+        v-on:click="onAddClick(newTaskName, new Date(dueDate))"
+      >
         Add
       </button>
     </div>
@@ -65,5 +68,8 @@ export default class TaskList extends Vue {
 }
 .task-name {
   margin: 0 50px;
+}
+.expired {
+  text-decoration: line-through;
 }
 </style>

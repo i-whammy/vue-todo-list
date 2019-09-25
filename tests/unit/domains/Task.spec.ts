@@ -27,6 +27,25 @@ describe('Task', () => {
         })
     });
 
+    describe('isExpired', () => {
+        test('return true when the duedate is before today', () => {
+            const task = new Task('id1', false, "task-expired", new Date("2019-01-01"))
+            expect(task.isExpired()).toBeTruthy()
+        });
+        test('return false when the duedate is after today', () => {
+            const task = new Task('id1', false, "task-of-further-future", new Date("2099-01-01"))
+            expect(task.isExpired()).toBeFalsy()
+        });
+        test('return false when the duedate is today', () => {
+            const task = new Task('id1', false, "task-of-due-today", new Date())
+            expect(task.isExpired()).toBeFalsy()            
+        });
+        test('return false when the duedate is undefined', () => {
+            const task = new Task('id1', false, "task-of-no-due-date")
+            expect(task.isExpired()).toBeFalsy()                        
+        });
+    });
+
     describe('undone', () => {
         test('make task done when the task is done', () => {
             const task = new Task("id1", true, "task1", new Date())
